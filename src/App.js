@@ -1,29 +1,55 @@
-import logo from './logo.svg';
 import './App.css';
-
-function retornarNumeroAleatorio(){
-  return Math.trunc(Math.random * 10);
-}
+import { useState } from 'react';
 
 function App() {
-  const siglo = 21;
-  const persona = {
-    nombre: 'David',
-    edad: '17'
+  function elminarUltimaFila(){
+    if(articulos.length>0){
+    const temp = Array.from(articulos);
+    temp.pop();
+    setArticulos(temp);
+    }
   }
+  const [articulos,setArticulos] = useState([
+    {
+      codigo: 1,
+      descripcion: 'papas',
+      precio: 12.42
+    },
+    {
+      codigo: 2,
+      descripcion: 'naranjas',
+      precio: 21
+    },
+    {
+      codigo: 3,
+      descripcion: 'peras',
+      precio: 18.20
+    }
+  ]);
   return (
-   <div>
-    <h1>Título nivel 1</h1>
-    <hr/>
-    <p>Estamos en el siglo {siglo}</p>
-    <h3>Acceso a un objeto</h3>
-    <p>{persona.nombre} tiene {persona.edad}</p>
-    <h3>LLamada a una función</h3>
-    <p>Un valor aleatorio llamando a un método</p>
-    {retornarNumeroAleatorio()}
-    <h3>Cálculo inmediato de expresiones </h3>
-    3 + 3 = {3 + 3}
-   </div>
+  <div>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+        </tr>
+      </thead>
+      <tbody>
+        {articulos.map(art =>{
+          return(
+            <tr key = {art.codigo}>
+              <td>{art.codigo}</td>
+              <td>{art.precio}</td>
+              <td>{art.descripcion}</td>
+            </tr>
+          )
+        })}
+      </tbody>
+    </table>
+    <button onClick={elminarUltimaFila}>Elimina la última fila</button>
+  </div>
   );
 }
 
